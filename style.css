@@ -1,3 +1,6 @@
+body {
+}
+
 a {
     color: black;
     text-decoration: none;
@@ -14,13 +17,14 @@ table {
     border-radius: 12px;
     background-color: #f5f5f5;
     box-shadow: #444 4px 4px 2px;
+    margin: 0 auto;
 }
 
 thead {
     border: solid 2px green;
     position: -webkit-sticky;
     position: sticky;
-    top: 40px; /*90*/
+    top: -8px; /*90*/
     z-index: 0;
 }
 
@@ -72,6 +76,10 @@ a:hover svg {
 tr td:nth-child(2) {
     text-align: left;
     width: 70%;
+}
+
+tr td:nth-child(4) {
+    text-align: right;
 }
 
 tr:nth-child(even) td{ background-color: #ddd; }
