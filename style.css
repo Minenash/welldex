@@ -63,9 +63,14 @@ tr td:nth-child(3) {
 
 }
 
-a svg {
+.dm {
     width: 1.5rem;
     padding-bottom: 10px;
+    margin-right: 11px;
+}
+.spot {
+    width: 1.5rem;
+    padding-bottom: 8px;
     margin-right: 11px;
 }
 
