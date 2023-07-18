@@ -1,4 +1,6 @@
 body {
+
+
 }
 
 a {
@@ -10,14 +12,13 @@ a:hover {
 }
 
 table {
-    width: 80%;
-    margin-bottom: 50px;
     border: solid 2px black;
     border-spacing: 0;
     border-radius: 12px;
     background-color: #f5f5f5;
     box-shadow: #444 4px 4px 2px;
-    margin: 0 auto;
+    margin: 0 auto 50px auto;
+    width: 80%;
 }
 
 thead {
@@ -43,14 +44,6 @@ td {
     white-space: nowrap;
 }
 
-tr:nth-child(odd) audio {
-    background-color: #0B0A08;
-    filter: contrast(100%) invert(100%) brightness(105%);
-}
-tr:nth-child(even) audio {
-    background-color: #444;
-    filter: contrast(100%) invert(100%);
-}
 
 tr:last-child audio{
     border-radius: 0 0 10px 0;
@@ -74,13 +67,39 @@ tr td:nth-child(3) {
     margin-right: 11px;
 }
 
-a:hover svg {
-    fill: #5865F2;
+.spot-only {
+    width: 1rem;
+    scale: 1.5;
+    padding: 0 6px 0 0;
+    transform: translateY(1px);
 }
+.yt {
+    width: 1rem;
+    scale: 2;
+    transform: translateY(-7px);
+    margin-right: 16px;
+    margin-left: 8px;
+}
+
+.dm:hover   { fill: #5865F2; }
+.spot:hover { fill: #1DB954; }
+.yt:hover   { fill: #FF0000; }
+.spot-only-hover:hover { fill: #1DB954; color: #1DB954;}
+
+tr:nth-child(odd) audio    { background-color: #0B0A08; }
+tr:nth-child(odd) .dm-a    { filter: hue-rotate(200deg) contrast(100%) invert(100%) brightness(105%) }
+tr:nth-child(odd) .spot-a  { filter: hue-rotate(100deg) contrast(100%) invert(100%) brightness(105%) }
+tr:nth-child(odd) .yt-a    { filter: hue-rotate(300deg) contrast(100%) invert(100%) brightness(105%) }
+
+tr:nth-child(even) audio   { background-color: #444; }
+tr:nth-child(even) .dm-a   { filter: hue-rotate(200deg) contrast(100%) invert(100%) }
+tr:nth-child(even) .spot-a { filter: hue-rotate(100deg) contrast(100%) invert(100%) }
+tr:nth-child(even) .yt-a   { filter: hue-rotate(300deg) contrast(100%) invert(100%) }
 
 tr td:nth-child(2) {
     text-align: left;
     width: 70%;
+    white-space: normal !important;
 }
 
 tr td:nth-child(4) {
