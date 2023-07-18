@@ -1,6 +1,10 @@
-body {
-
-
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+h3 {
+    text-align: center;
+    margin-bottom: 8px;
 }
 
 a {
@@ -19,6 +23,7 @@ table {
     box-shadow: #444 4px 4px 2px;
     margin: 0 auto 50px auto;
     width: 80%;
+    max-width: 1200px;
 }
 
 thead {
