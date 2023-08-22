@@ -1,3 +1,8 @@
+html {
+    scroll-behavior:smooth;
+    scroll-padding-top: 1rem;
+}
+
 h2 {
     text-align: center;
     text-decoration: underline;
@@ -113,3 +118,33 @@ th:first-child { border-radius: 10px 0 0 0; }
 th:last-child { border-radius: 0 10px 0 0; }
 tr:last-child td:first-child { border-radius: 0 0 0 10px; }
 tr:last-child td:last-child { border-radius: 0 0 10px 0; }
+
+.stats {
+    margin: 0 auto 50px auto;
+    width: 80%;
+    max-width: 1200px;
+}
+
+.stats-table {
+    width: 35%;
+}
+
+.stats-table tr td {
+    text-align: center;
+}
+.stats-table tr:last-child td {
+    border-top: 2px solid black;
+}
+
+.nav-table tr td {
+    text-align: center;
+    width: 1%;
+    padding: 0;
+}
+.nav-table tr td a:hover {color: inherit;}
+.nav-table tr td div {padding:8px; margin:0 auto}
+.nav-table tr td:nth-child(1):hover { background-color: #1DB954; }
+.nav-table tr td:nth-child(2):hover { background-color: #FF5555; color: white;}
+.nav-table tr td:nth-child(3):hover { background-color: #5865F2; color: white; }
+.nav-table tr td:nth-child(4):hover { background-color: gold; }
+
