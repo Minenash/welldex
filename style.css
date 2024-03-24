@@ -70,7 +70,7 @@ a svg {
     margin-right: 2px;
 }
 
-.dl, .spot, .yt, .gr, .dm {
+.dl, .spot, .yt, .dm {
     width: 26px;
     height: 26px;
     margin-top: 4px;
@@ -93,7 +93,6 @@ a:active svg {
 .dm:hover, .dm:active     { fill: #5865F2; }
 .spot:hover, .spot:active { fill: #1DB954; }
 .yt:hover, .yt:active     { fill: #FF0000; }
-.gr:hover, .gr:active     { fill: #EA4335;}
 
 tr td:nth-child(3) {
     padding: 0 4px 0 4px;
