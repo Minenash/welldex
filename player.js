@@ -29,31 +29,54 @@ const svg_high = `<svg class="player-icon" width="28px" height="28px" viewBox="0
 
 const player = document.getElementById('wrapper');
 const vis = document.getElementById('vis');
+const canvas = document.getElementById('testc');
 const title = document.getElementById('title')
+const file_name = document.getElementById('file-name')
 const play_pause = document.getElementById('play_pause')
 const volume_indicator = document.getElementById('volume_indicator')
 const time = document.getElementById('time')
 const dur = document.getElementById('dur')
 const seek = document.getElementById('seek')
 const volume = document.getElementById('volume')
+const settings_button = document.getElementById('settings-button')
 
-let audioMotion = new AudioMotionAnalyzer(vis, {
-    fsElement: vis,
-    mode: 1,
-    gradient: 'rainbow',
-    lineWidth: 1.5,
-    showPeaks: false,
-    overlay: true,
-    showBgColor: false,
-    // bgAlpha: 0.1,
-    showScaleX: false,
-    smoothing: 0.8,
-    start: false,
-    lowRes: true,
-    minFreq: 1,
-    maxFreq: 20000
+const v_panel = document.getElementById('settings');
+const v_fps = document.getElementById('v_fps');
+const v_enable = document.getElementById('v_enable');
+const v_high = document.getElementById('v_high');
+const v_max_fps = document.getElementById('v_max_fps');
+const v_style = document.getElementById('v_style');
+const v_colors = document.getElementById('v_colors');
 
-});
+let audioMotion;
+createAudioMotion();
+// if (!v_enable)
+//     audioMotion.destroy()
+
+function createAudioMotion() {
+    audioMotion = new AudioMotionAnalyzer(vis, {
+        fsElement: vis,
+        canvas: document.getElementById('testc'),
+        mode: 1,
+        gradient: 'rainbow',
+        lineWidth: 1.5,
+        showPeaks: false,
+        overlay: true,
+        showBgColor: false,
+        // bgAlpha: 0.1,
+        showScaleX: false,
+        smoothing: 0.8,
+        start: false,
+        lowRes: true,
+        minFreq: 1,
+        maxFreq: 20000,
+        maxFPS: 60,
+        connectSpeakers: false
+
+    });
+}
+
+applyVisualizerSettings()
 
 let audio = null;
 let isPlaying = false;
@@ -61,24 +84,19 @@ let mutedVolume = -1;
 let rAF = null;
 let audios = new Map();
 let audioContexts = new Map();
+let showSettings = false;
 
 const whilePlaying = () => {
     seek.value = Math.floor(audio.currentTime);
     time.textContent = formatTime(audio.currentTime)
     rAF = requestAnimationFrame(whilePlaying);
+
+    if (v_enable.checked)
+        v_fps.textContent = audioMotion.fps.toFixed(1) + " fps";
 }
 
 play_pause.innerHTML = svg_play
 volume_indicator.innerHTML = svg_high
-// setAudio('audio/spotify/Didn\'t Care Didn\'t Answer.mp3')
-// if (audio.readyState > 0) {
-//     init()
-// } else {
-//     audio.addEventListener('loadedmetadata', () => {
-//         init()
-//     });
-// }
-
 
 play_pause.addEventListener('click', () => {
     if (isPlaying) {
@@ -109,8 +127,6 @@ seek.addEventListener('change', () => {
         requestAnimationFrame(whilePlaying);
     }
 });
-
-// audio.addEventListener('progress', displayBufferedAmount);
 
 volume.addEventListener('input', () => {
     audio.volume = volume.value / 100.0
@@ -146,8 +162,8 @@ function formatTime(secs) {
     return `${minutes}:${returnedSeconds}`;
 }
 
-function setAudio(file) {
-    player.classList.add('show-player')
+function setAudio(name, file) {
+    player.classList.add('show-panel')
     play_pause.disable = true
     seek.disable = true
     play_pause.innerHTML = svg_play
@@ -157,15 +173,17 @@ function setAudio(file) {
 
     audio = audios.has(file) ? audios.get(file) : new Audio("audio/" + file)
     let context = audioContexts.has(audio) ? audioContexts.get(audio) : audioMotion.audioCtx.createMediaElementSource(audio)
-
+    console.log("Before: " + context.destination)
     audios.set(file, audio)
     audioContexts.set(audio, context)
 
     audio.play().then((a) => {
+        audio.volume = volume.value / 100
         play_pause.disable = false
         seek.disable = false
         isPlaying = true;
-        title.textContent = file
+        title.textContent = name
+        file_name.textContent = file
         seek.value = audio.currentTime
         seek.max = Math.floor(audio.duration)
         dur.textContent = formatTime(audio.duration)
@@ -173,22 +191,81 @@ function setAudio(file) {
         play_pause.innerHTML = svg_pause
         requestAnimationFrame(whilePlaying)
 
-        audioMotion.connectInput(context)
-
+        if (v_enable.checked)
+            audioMotion.connectInput(context)
+        context.connect(audioMotion.audioCtx.destination, 0)
+        console.log("Before: " + context.destination)
         audioMotion.start()
     })
+    audio.addEventListener('ended', () => {
+        cancelAnimationFrame(rAF)
+        isPlaying = false;
+        play_pause.innerHTML = svg_play
+        seek.value = 0
+        time.textContent = formatTime(0)
+    });
 }
+
+
 
 function closeplayer() {
     audio.pause()
-    player.classList.remove('show-player')
+    player.classList.remove('show-panel')
+    v_panel.classList.remove('show-panel')
+    showSettings = false
 }
+
+settings_button.addEventListener('click', () => {
+    showSettings = !showSettings
+    if (showSettings) {
+        v_panel.classList.add('show-panel')
+        settings_button.classList.add("settings-open")
+    }
+    else {
+        v_panel.classList.remove('show-panel')
+        settings_button.classList.remove("settings-open")
+    }
+})
+
+
 window.setAudio = setAudio
 window.closeplayer = closeplayer
 
-// const displayBufferedAmount = () => {
-//     const bufferedAmount = Math.floor(audio.buffered.end(audio.buffered.length - 1));
-//     audioPlayerContainer.style.setProperty('--buffered-width', `${(bufferedAmount / seek.max) * 100}%`);
-// }
+
+function applyVisualizerSettings() {
+    audioMotion.lowRes = !v_high.checked
+    audioMotion.maxFPS = v_max_fps.value
+    audioMotion.colorMode = v_style.value
+    audioMotion.gradient = v_colors.value
+}
+v_high.addEventListener('input', applyVisualizerSettings)
+v_max_fps.addEventListener('input', applyVisualizerSettings)
+v_style.addEventListener('input', applyVisualizerSettings)
+v_colors.addEventListener('input', applyVisualizerSettings)
+
+let timer;
+v_enable.addEventListener('input', setEnable)
+setEnable()
+
+function setEnable() {
+    if (!v_enable.checked) {
+        audioMotion.disconnectInput()
+        v_fps.textContent = ""
+        if (timer != null)
+            clearTimeout(timer)
+        timer = setTimeout(() => {
+            audioMotion.stop()
+            canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height)
+        }, 1000)
+
+    }
+    else if (audio != null) {
+        if (timer != null)
+            clearTimeout(timer)
+        audioMotion.start()
+        audioMotion.connectInput(audioContexts.get(audio))
+    }
+}
+
 
 
