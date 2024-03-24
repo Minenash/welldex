@@ -131,16 +131,18 @@ tr:last-child td:last-child { border-radius: 0 0 10px 0; }
 
 .stats {
     margin: 0 auto 50px auto;
-    width: 80%;
+    width: 75%;
     max-width: 1200px;
 }
 
 .stats-table {
-    width: 40%;
+    width: 0;
 }
 
 .stats-table tr td {
     text-align: center;
+    white-space: nowrap !important;
+    font-family: monospace, monospace;
 }
 .stats-table tr:last-child td {
     border-top: 2px solid black;
@@ -156,7 +158,8 @@ tr:last-child td:last-child { border-radius: 0 0 10px 0; }
 .nav-table tr td:nth-child(1):hover { background-color: #1DB954; }
 .nav-table tr td:nth-child(2):hover { background-color: #FF5555; color: white;}
 .nav-table tr td:nth-child(3):hover { background-color: #5865F2; color: white; }
-.nav-table tr td:nth-child(4):hover { background-color: gold; }
+.nav-table tr td:nth-child(4):hover { background-color: #1a70b8; color: white; }
+.nav-table tr td:nth-child(5):hover { background-color: gold; }
 .back-top {
     position: fixed;
     bottom: 32px;
@@ -292,7 +295,7 @@ span {
 
 
 .controls {
-    margin: 2px 16px 0;
+    margin: 8px 16px 0;
     display: flex;
     align-items: center;
     flex-direction: row;
