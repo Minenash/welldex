@@ -212,6 +212,7 @@ function closeplayer() {
     audio.pause()
     player.classList.remove('show-panel')
     v_panel.classList.remove('show-panel')
+    settings_button.classList.remove("settings-open")
     showSettings = false
 }
 
