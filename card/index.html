@@ -4,9 +4,8 @@
     <style>
         body {
             text-align: center;
-            /*background: gray;*/
             font-family: Calibri,sans-serif;
-            font-size: 20px;
+            font-size: 2vh;
         }
         .background {
             position: absolute;
@@ -24,7 +23,7 @@
             cursor: pointer;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 55%;
             transform: translate(-50%, -50%);
             perspective: 1400px;
             transition: all 0.2s ease;
@@ -34,21 +33,10 @@
                 transform: translate(0%, -50%);
             }
         }
-        img {
-            max-width: 400px;
-            width: 80vw;
-        }
-        .card {
-            max-width: 400px;
-            max-height: 600px;
-            width: 80vw;
-            height: 120vw;
+        .card, img {
+            height: 66vh;
+            width: 44vh;
             transform-style: preserve-3d;
-            transform: rotateX(0deg);
-            transition: all 1s ease;
-        }
-        .open .card {
-            transform: rotateX(0deg);
         }
         .card__panel {
             border: 1px solid black;
@@ -60,29 +48,17 @@
             transition: all 1s ease;
             backface-visibility: visible;
             transform-origin: left;
-            transform-style: preserve-3D;
-            transform: rotate3d(0, 1, 0, 0deg);
-        }
-        .card__panel--front {
-            backface-visibility: hidden;
-            background: #6288e6;
-            z-index: 1;
         }
         .open .card__panel--front {
             transform: rotate3d(0, 1, 0, -180deg);
         }
-        .card__panel--inside-left {
-            background: #fff;
-            z-index: 0;
-        }
-        .open .card__panel--inside-left {
-            transform: rotate3d(0, 1, 0, -180deg);
-        }
         .card__panel--inside-right {
             border-left: none;
-            background: #fff;
+            background: white;
             z-index: -1;
-            /*margin: 4px;*/
+            display: grid;
+            align-items: center;
+            transition: none;
         }
         .click_to_x {
             color: #ddd;
@@ -97,16 +73,13 @@
         <div class="card__panel card__panel--front">
             <img src="front2.png">
         </div>
-        <div class="card__panel card__panel--inside-left">
-            <img src="front2.png">
-        </div>
         <div class="card__panel card__panel--inside-right">
-            <div style="padding: 22px;">
             <h3>Happy Friendiversary, Alex!</h3>
-            <p>I can't believe it's already been 4 years. It feels like just yesterday we were playing Minecraft with the group or playing Monopoly on Christmas.</p>
-            <p>You pulled me out of the deepest depression I've ever felt, and since then, you've been a constant source of joy, fun, and comfort. Whether it's watching shows and movies, playing games both modern and retro, bowling, or just hanging out, every moment has meant something to me.</p>
-            <p>A lot has changed over the years, but one thing that hasn't is our friendship. I'm really thankful for that.</p>
-            <p>Looking forward to the next 4,<br><b>Jakob</b></p>
+            <div style="padding: 0 22px 22px; margin-top: -22px">
+                <p>I can't believe it's already been 4 years. It feels like just yesterday we were playing Minecraft with the group or playing Monopoly on Christmas.</p>
+                <p>You pulled me out of the deepest depression I've ever felt, and since then, you've been a constant source of joy, fun, and comfort. Whether it's watching shows and movies, playing games both modern and retro, bowling, or just hanging out, every moment has meant something to me.</p>
+                <p>A lot has changed over the years, but one thing that hasn't is our friendship. I'm really thankful for that.</p>
+                <p>Looking forward to the next 4,<br><b>Jakob</b></p>
             </div>
         </div>
     </div>
