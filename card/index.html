@@ -19,7 +19,7 @@
             background-repeat: no-repeat;
             filter: brightness(60%);
         }
-        .card__container {
+        #card__container {
             cursor: pointer;
             position: absolute;
             left: 50%;
@@ -29,7 +29,7 @@
             transition: all 0.2s ease;
         }
         @media (min-width: 768px) {
-            .open .card__container {
+            .open #card__container {
                 transform: translate(0%, -50%);
             }
         }
@@ -60,7 +60,7 @@
             align-items: center;
             transition: none;
         }
-        .click_to_x {
+        #click_to_x {
             color: #ddd;
         }
 
@@ -68,7 +68,7 @@
 </head>
 <body>
 <div class="background"></div>
-<div class="card__container js-card-opener">
+<div id="card__container">
     <div class="card">
         <div class="card__panel card__panel--front">
             <img src="front4.png" alt="4 years of awesome friendship">
@@ -83,14 +83,14 @@
             </div>
         </div>
     </div>
-    <p class="click_to_x">Click card to open</p>
+    <p id="click_to_x">Click card to open</p>
 </div>
 
 <script>
-    document.querySelector(".js-card-opener")
+    document.getElementById("card__container")
         .onclick = () => {
         let isOpen = document.body.classList.toggle("open");
-        document.querySelector(".click_to_x").innerHTML = isOpen ? "Click card to close" : "Click card to open";
+        document.getElementById("click_to_x").innerHTML = isOpen ? "Click card to close" : "Click card to open";
     };
 </script>
 </body>
